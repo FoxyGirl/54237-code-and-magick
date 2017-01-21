@@ -1,11 +1,12 @@
 /**
  * Created by FoxyGirl on 21.01.2017.
  */
-'use strict'
+'use strict';
 
-window.renderStatistics = function(ctx, names, times){
+window.renderStatistics = function (ctx, names, times) {
 
-  var drawCloudNew = function(ctx, fillStyle, x, y, width, height) {
+  var drawCloudNew = function (context, fillStyle, x, y, width, height) {
+    var ctx = context;
     var offset = 10;
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -32,6 +33,7 @@ window.renderStatistics = function(ctx, names, times){
   var topOut = 90;
   var textOut = 5;
   var sizeFont = 16;
+  var i = 0;
 
   drawCloudNew(ctx, 'rgba(0, 0, 0, 0.7)', 110, 20, rectWidth, rectHeight);
   drawCloudNew(ctx, '#FFFFFF', 100, 10, rectWidth, rectHeight);
@@ -43,14 +45,14 @@ window.renderStatistics = function(ctx, names, times){
 
   var maxTime = 0;
 
-  for (var i = 0; i < times.length; i++) {
+  for (i = 0; i < times.length; i++) {
     maxTime = maxTime < times[i] ? times[i] : maxTime;
   }
 
   var stepHeight = heightBarChart / maxTime;
   var startX = 120 + (380 - stepBar * (times.length - 1) - widthBar * times.length) / 2;
 
-  for (var i = 0; i < times.length; i++) {
+  for (i = 0; i < times.length; i++) {
     var barHeight = Math.round(times[i] * stepHeight);
     var startY = topOut + heightBarChart - barHeight;
 
@@ -58,7 +60,7 @@ window.renderStatistics = function(ctx, names, times){
       barColor = colorCurrentPlayer;
       ctx.font = 'bold ' + sizeFont + 'px PT Mono';
     } else {
-      barColor = 'rgba(0, 0, ' + ( Math.random() * 5 * 50 ).toFixed() + ', ' + ( Math.random()*0.9 + 0.1 ) + ')';
+      barColor = 'rgba(0, 0, ' + (Math.random() * 5 * 50).toFixed() + ', ' + (Math.random() * 0.9 + 0.1) + ')';
       ctx.font = 'normal ' + sizeFont + 'px PT Mono';
     }
 
