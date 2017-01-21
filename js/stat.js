@@ -6,21 +6,20 @@
 window.renderStatistics = function (ctx, names, times) {
 
   var drawCloudNew = function (context, fillStyle, x, y, width, height) {
-    var ctx = context;
     var offset = 10;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + offset, y + height / 2);
-    ctx.lineTo(x, y + height);
-    ctx.lineTo(x + width / 2, y + height - offset);
-    ctx.lineTo(x + width, y + height);
-    ctx.lineTo(x + width - offset, y + height / 2);
-    ctx.lineTo(x + width, y);
-    ctx.lineTo(x + width / 2, y + offset);
-    ctx.lineTo(x, y);
-    ctx.closePath();
-    ctx.fillStyle = fillStyle;
-    ctx.fill();
+    context.beginPath();
+    context.moveTo(x, y);
+    context.lineTo(x + offset, y + height / 2);
+    context.lineTo(x, y + height);
+    context.lineTo(x + width / 2, y + height - offset);
+    context.lineTo(x + width, y + height);
+    context.lineTo(x + width - offset, y + height / 2);
+    context.lineTo(x + width, y);
+    context.lineTo(x + width / 2, y + offset);
+    context.lineTo(x, y);
+    context.closePath();
+    context.fillStyle = fillStyle;
+    context.fill();
   };
 
   var rectWidth = 420;
