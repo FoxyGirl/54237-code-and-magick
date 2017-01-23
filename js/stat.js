@@ -20,8 +20,8 @@ window.renderStatistics = function (ctx, names, times) {
   var offsetShadow = 10;
   var paddingCloud = 20;
   var offsetText = sizeFont / 2 - 2;
-  var startXBar = startXCloud + paddingCloud + (rectWidth - 2 * paddingCloud - stepBar * (times.length - 1) -
-      widthBar * times.length) / 2;
+  var startXBar = startXCloud + paddingCloud + (rectWidth - 2 * paddingCloud -
+      stepBar * (times.length - 1) - widthBar * times.length) / 2;
 
   drawCloud('rgba(0, 0, 0, 0.7)', startXCloud + offsetShadow, startYCloud + offsetShadow, rectWidth, rectHeight);
   drawCloud('#FFFFFF', startXCloud, startYCloud, rectWidth, rectHeight);
