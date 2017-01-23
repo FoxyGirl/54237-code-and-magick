@@ -14,22 +14,24 @@ window.renderStatistics = function (ctx, names, times) {
   var textOut = 5;
   var sizeFont = 16;
   var stepHeight;
+  var maxTime;
   var startXCloud = 100;
   var startYCloud = 10;
   var offsetShadow = 10;
   var paddingCloud = 20;
   var offsetText = sizeFont / 2 - 2;
-  var startXBar = (startXCloud + paddingCloud) + (rectWidth - 2 * paddingCloud - stepBar * (times.length - 1) - widthBar * times.length) / 2;
+  var startXBar = startXCloud + paddingCloud + (rectWidth - 2 * paddingCloud - stepBar * (times.length - 1) -
+      widthBar * times.length) / 2;
 
   drawCloud('rgba(0, 0, 0, 0.7)', startXCloud + offsetShadow, startYCloud + offsetShadow, rectWidth, rectHeight);
   drawCloud('#FFFFFF', startXCloud, startYCloud, rectWidth, rectHeight);
 
   ctx.fillStyle = '#000000';
-  ctx.font = 'normal' + sizeFont + 'px PT Mono';
+  ctx.font = 'normal ' + sizeFont + 'px PT Mono';
   ctx.fillText('Ура вы победили!', startXCloud + paddingCloud, paddingCloud + sizeFont + offsetText);
   ctx.fillText('Список результатов:', startXCloud + paddingCloud, paddingCloud + (sizeFont + offsetText) * 2);
 
-  var maxTime = Math.max.apply(null, times);
+  maxTime = Math.max.apply(null, times);
   stepHeight = heightBarChart / maxTime;
 
   for (var i = 0; i < times.length; i++) {
