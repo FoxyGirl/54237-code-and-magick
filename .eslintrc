@@ -13,3 +13,4 @@ extends:
 rules:
   camelcase: [2, { properties: "never" }]
   quotes: [2, "single"]
+  max-len: [1, 120]
