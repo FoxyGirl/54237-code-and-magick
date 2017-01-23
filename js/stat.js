@@ -10,7 +10,6 @@ window.renderStatistics = function (ctx, names, times) {
   var widthBar = 40;
   var stepBar = 50;
   var colorCurrentPlayer = 'rgba(255, 0, 0, 1)';
-  var barColor;
   var topOut = 90;
   var textOut = 5;
   var sizeFont = 16;
@@ -38,14 +37,12 @@ window.renderStatistics = function (ctx, names, times) {
     var startYBar = topOut + heightBarChart - barHeight;
 
     if (names[i] === 'Вы') {
-      barColor = colorCurrentPlayer;
+      ctx.fillStyle = colorCurrentPlayer;
       ctx.font = 'bold ' + sizeFont + 'px PT Mono';
     } else {
-      barColor = 'rgba(0, 0, ' + (Math.random() * 5 * 50).toFixed() + ', ' + (Math.random() * 0.9 + 0.1) + ')';
+      ctx.fillStyle = 'rgba(0, 0, ' + (Math.random() * 5 * 50).toFixed() + ', ' + (Math.random() * 0.9 + 0.1) + ')';
       ctx.font = 'normal ' + sizeFont + 'px PT Mono';
     }
-
-    ctx.fillStyle = barColor;
     ctx.fillRect(startXBar, startYBar, widthBar, barHeight);
 
     ctx.fillStyle = '#000000';
