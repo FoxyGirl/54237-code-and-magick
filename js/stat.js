@@ -4,24 +4,6 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
-
-  var drawCloudNew = function (context, fillStyle, x, y, width, height) {
-    var offset = 10;
-    context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x + offset, y + height / 2);
-    context.lineTo(x, y + height);
-    context.lineTo(x + width / 2, y + height - offset);
-    context.lineTo(x + width, y + height);
-    context.lineTo(x + width - offset, y + height / 2);
-    context.lineTo(x + width, y);
-    context.lineTo(x + width / 2, y + offset);
-    context.lineTo(x, y);
-    context.closePath();
-    context.fillStyle = fillStyle;
-    context.fill();
-  };
-
   var rectWidth = 420;
   var rectHeight = 270;
   var heightBarChart = 150;
@@ -32,28 +14,28 @@ window.renderStatistics = function (ctx, names, times) {
   var topOut = 90;
   var textOut = 5;
   var sizeFont = 16;
-  var i = 0;
+  var stepHeight;
+  var startXCloud = 100;
+  var startYCloud = 10;
+  var offsetShadow = 10;
+  var paddingCloud = 20;
+  var offsetText = sizeFont / 2 - 2;
+  var startXBar = (startXCloud + paddingCloud) + (rectWidth - 2 * paddingCloud - stepBar * (times.length - 1) - widthBar * times.length) / 2;
 
-  drawCloudNew(ctx, 'rgba(0, 0, 0, 0.7)', 110, 20, rectWidth, rectHeight);
-  drawCloudNew(ctx, '#FFFFFF', 100, 10, rectWidth, rectHeight);
+  drawCloud('rgba(0, 0, 0, 0.7)', startXCloud + offsetShadow, startYCloud + offsetShadow, rectWidth, rectHeight);
+  drawCloud('#FFFFFF', startXCloud, startYCloud, rectWidth, rectHeight);
 
   ctx.fillStyle = '#000000';
   ctx.font = 'normal' + sizeFont + 'px PT Mono';
-  ctx.fillText('Ура вы победили!', 120, 42);
-  ctx.fillText('Список результатов:', 120, 60);
+  ctx.fillText('Ура вы победили!', startXCloud + paddingCloud, paddingCloud + sizeFont + offsetText);
+  ctx.fillText('Список результатов:', startXCloud + paddingCloud, paddingCloud + (sizeFont + offsetText) * 2);
 
-  var maxTime = 0;
+  var maxTime = Math.max.apply(null, times);
+  stepHeight = heightBarChart / maxTime;
 
-  for (i = 0; i < times.length; i++) {
-    maxTime = maxTime < times[i] ? times[i] : maxTime;
-  }
-
-  var stepHeight = heightBarChart / maxTime;
-  var startX = 120 + (380 - stepBar * (times.length - 1) - widthBar * times.length) / 2;
-
-  for (i = 0; i < times.length; i++) {
+  for (var i = 0; i < times.length; i++) {
     var barHeight = Math.round(times[i] * stepHeight);
-    var startY = topOut + heightBarChart - barHeight;
+    var startYBar = topOut + heightBarChart - barHeight;
 
     if (names[i] === 'Вы') {
       barColor = colorCurrentPlayer;
@@ -64,14 +46,31 @@ window.renderStatistics = function (ctx, names, times) {
     }
 
     ctx.fillStyle = barColor;
-    ctx.fillRect(startX, startY, widthBar, barHeight);
+    ctx.fillRect(startXBar, startYBar, widthBar, barHeight);
 
     ctx.fillStyle = '#000000';
     ctx.textAlign = 'center';
-    ctx.fillText(Math.round(times[i]), startX + widthBar / 2, startY - textOut);
-    ctx.fillText(names[i], startX + widthBar / 2, startY + barHeight + textOut + sizeFont);
+    ctx.fillText(Math.round(times[i]), startXBar + widthBar / 2, startYBar - textOut);
+    ctx.fillText(names[i], startXBar + widthBar / 2, startYBar + barHeight + textOut + sizeFont);
 
-    startX = startX + widthBar + stepBar;
+    startXBar = startXBar + widthBar + stepBar;
+  }
+
+  function drawCloud(fillStyle, x, y, width, height) {
+    var offset = 10;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + offset, y + height / 2);
+    ctx.lineTo(x, y + height);
+    ctx.lineTo(x + width / 2, y + height - offset);
+    ctx.lineTo(x + width, y + height);
+    ctx.lineTo(x + width - offset, y + height / 2);
+    ctx.lineTo(x + width, y);
+    ctx.lineTo(x + width / 2, y + offset);
+    ctx.lineTo(x, y);
+    ctx.closePath();
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
   }
 
 };
