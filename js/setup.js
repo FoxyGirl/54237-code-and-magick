@@ -28,10 +28,15 @@ setupWizardForm.addEventListener('submit', function (e) {
   e.preventDefault();
   if (setupUserName.validity.valueMissing) {
     console.log('Error');
-    //  setupUserName.addInvalidity('Не должно быть пустым');
+    setupUserName.style.outline = 'solid 1px red';
+    //  setupUserName.validity.addInvalidity('Не должно быть пустым');
   } else {
     setupWizardForm.submit();
   }
+});
+
+setupUserName.addEventListener('focus', function () {
+  this.style.outline = '';
 });
 
 wizardCoat.addEventListener('click', function () {
