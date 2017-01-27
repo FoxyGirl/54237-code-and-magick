@@ -16,6 +16,8 @@ var wizardEyesColors = ['red', 'blue', 'yellow', 'green', 'black'];
 var fireballSetup = document.querySelector('.setup-fireball-wrap');
 var fireballSetupColors = ['#30a8ee', '#5ce6c0', '#e848d5', '#e6e848', '#ee4830'];
 
+setupUserName.removeAttribute('required');
+
 setupOpen.addEventListener('click', function () {
   setupModal.classList.remove('invisible');
 });
@@ -26,13 +28,15 @@ setupClose.addEventListener('click', function () {
 
 setupWizardForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  if (setupUserName.validity.valueMissing) {
-    console.log('Error');
+  if (!setupUserName.value) {
     setupUserName.style.outline = 'solid 1px red';
-    //  setupUserName.validity.addInvalidity('Не должно быть пустым');
   } else {
     setupWizardForm.submit();
   }
+});
+
+setupUserName.addEventListener('blur', function () {
+  this.style.outline = '';
 });
 
 setupUserName.addEventListener('focus', function () {
