@@ -7,7 +7,6 @@ var setupModal = document.querySelector('.setup ');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var setupUserName = document.querySelector('.setup-user-name');
-var setupSubmit = document.querySelector('.setup-submit');
 var setupWizardForm = document.querySelector('.setup-wizard-form');
 var wizardCoat = document.getElementById('wizard-coat');
 var wizardCoatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)',
