@@ -32,9 +32,9 @@ var fireballSetupColors = [
   '#e6e848'
 ];
 
-var changeWizardCoatColor = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
-var changeWizardEyesColor = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
-var changeFireballColor = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
+var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
+var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
+var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
 
 setupOpenNode.addEventListener('click', function () {
   setupModalNode.classList.remove('invisible');
@@ -44,11 +44,9 @@ setupCloseNode.addEventListener('click', function () {
   setupModalNode.classList.add('invisible');
 });
 
-wizardCoatNode.addEventListener('click', changeWizardCoatColor);
-
-wizardEyesNode.addEventListener('click', changeWizardEyesColor);
-
-fireballSetupNode.addEventListener('click', changeFireballColor);
+wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
+wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
+fireballSetupNode.addEventListener('click', changeFireballColorHandler);
 
 
 /** Change style property in element from array
@@ -56,7 +54,7 @@ fireballSetupNode.addEventListener('click', changeFireballColor);
  * @param {Element} elem - The element for changing style property
  * @param {string} styleProp - The changeable property.
  * @param {Array} arrProp - The array of property values
- * @return function for callback
+ * @return {Function} - The function for callback
  */
 function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
