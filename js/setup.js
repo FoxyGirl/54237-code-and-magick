@@ -22,16 +22,16 @@ setupCloseNode.addEventListener('click', function () {
   setupModalNode.classList.add('invisible');
 });
 
-wizardCoatNode.addEventListener('click', function (ev) {
-  changeStyle(ev.currentTarget, 'fill', wizardCoatColors);
+wizardCoatNode.addEventListener('click', function (event) {
+  changeStyle(event.currentTarget, 'fill', wizardCoatColors);
 });
 
-wizardEyesNode.addEventListener('click', function (ev) {
-  changeStyle(ev.currentTarget, 'fill', wizardEyesColors);
+wizardEyesNode.addEventListener('click', function (event) {
+  changeStyle(event.currentTarget, 'fill', wizardEyesColors);
 });
 
-fireballSetupNode.addEventListener('click', function (ev) {
-  changeStyle(ev.currentTarget, 'background', fireballSetupColors);
+fireballSetupNode.addEventListener('click', function (event) {
+  changeStyle(event.currentTarget, 'background', fireballSetupColors);
 });
 
 /** Change style property in element
