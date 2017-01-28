@@ -11,10 +11,6 @@ var setupModal = document.querySelector('.setup ');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var setupUserName = document.querySelector('.setup-user-name');
-<<<<<<< HEAD
-var setupSubmit = document.querySelector('.setup-submit');
-=======
->>>>>>> module3-task1
 var setupWizardForm = document.querySelector('.setup-wizard-form');
 var wizardCoat = document.getElementById('wizard-coat');
 var wizardCoatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)',
@@ -24,11 +20,8 @@ var wizardEyesColors = ['red', 'blue', 'yellow', 'green', 'black'];
 var fireballSetup = document.querySelector('.setup-fireball-wrap');
 var fireballSetupColors = ['#30a8ee', '#5ce6c0', '#e848d5', '#e6e848', '#ee4830'];
 
-<<<<<<< HEAD
-=======
 setupUserName.removeAttribute('required');
 
->>>>>>> module3-task1
 setupOpen.addEventListener('click', function () {
   setupModal.classList.remove('invisible');
 });
