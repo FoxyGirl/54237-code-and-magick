@@ -3,62 +3,41 @@
  */
 'use strict';
 
-var setupModal = document.querySelector('.setup ');
-var setupOpen = document.querySelector('.setup-open');
-var setupClose = document.querySelector('.setup-close');
-var setupUserName = document.querySelector('.setup-user-name');
-var setupWizardForm = document.querySelector('.setup-wizard-form');
-var wizardCoat = document.getElementById('wizard-coat');
+var setupModalNode = document.querySelector('.setup');
+var setupOpenNode = document.querySelector('.setup-open');
+var setupCloseNode = document.querySelector('.setup-close');
+var wizardCoatNode = document.getElementById('wizard-coat');
 var wizardCoatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)',
   'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var wizardEyes = document.getElementById('wizard-eyes');
+var wizardEyesNode = document.getElementById('wizard-eyes');
 var wizardEyesColors = ['red', 'blue', 'yellow', 'green', 'black'];
-var fireballSetup = document.querySelector('.setup-fireball-wrap');
+var fireballSetupNode = document.querySelector('.setup-fireball-wrap');
 var fireballSetupColors = ['#30a8ee', '#5ce6c0', '#e848d5', '#e6e848', '#ee4830'];
 
-setupUserName.removeAttribute('required');
-
-setupOpen.addEventListener('click', function () {
-  setupModal.classList.remove('invisible');
+setupOpenNode.addEventListener('click', function () {
+  setupModalNode.classList.remove('invisible');
 });
 
-setupClose.addEventListener('click', function () {
-  setupModal.classList.add('invisible');
+setupCloseNode.addEventListener('click', function () {
+  setupModalNode.classList.add('invisible');
 });
 
-setupWizardForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  if (!setupUserName.value) {
-    setupUserName.style.outline = 'solid 1px red';
-  } else {
-    setupWizardForm.submit();
-  }
+wizardCoatNode.addEventListener('click', function (ev) {
+  changeStyle(ev.currentTarget, 'fill', wizardCoatColors);
 });
 
-setupUserName.addEventListener('blur', function () {
-  this.style.outline = '';
+wizardEyesNode.addEventListener('click', function (ev) {
+  changeStyle(ev.currentTarget, 'fill', wizardEyesColors);
 });
 
-setupUserName.addEventListener('focus', function () {
-  this.style.outline = '';
+fireballSetupNode.addEventListener('click', function (ev) {
+  changeStyle(ev.currentTarget, 'background', fireballSetupColors);
 });
 
-wizardCoat.addEventListener('click', function () {
-  changeStyle(this, 'fill', wizardCoatColors);
-});
-
-wizardEyes.addEventListener('click', function () {
-  changeStyle(this, 'fill', wizardEyesColors);
-});
-
-fireballSetup.addEventListener('click', function () {
-  changeStyle(fireballSetup, 'background', fireballSetupColors);
-});
-
-/** change style property in element
- * @param {element} elem : element for changing style property
- * @param {string} styleProp : changeable property
- * @param {arr} arrProp : array of property values
+/** Change style property in element
+ * @param {Element} elem : element for changing style property
+ * @param {String} styleProp : changeable property
+ * @param {Array} arrProp : array of property values
  */
 function changeStyle(elem, styleProp, arrProp) {
   var indexProp;
@@ -67,7 +46,7 @@ function changeStyle(elem, styleProp, arrProp) {
     if (currentProp) {
       currentProp = convertRGBDecimalToHex(currentProp);
     } else {
-      console.log('!!!' + currentProp);
+      console.log('!!!' + currentProp); // eslint-disable-line
     }
   }
   indexProp = arrProp.indexOf(currentProp);
@@ -77,9 +56,9 @@ function changeStyle(elem, styleProp, arrProp) {
   return;
 }
 
-/** convert RGB decimal to Hex
- * @param {string} rgb : RGB decimal
- * @return {string} : Hex
+/** Convert RGB decimal to Hex
+ * @param {String} rgb : RGB decimal
+ * @return {String} : Hex
  */
 function convertRGBDecimalToHex(rgb) {
   var values = rgb.match(/\d+/g);
