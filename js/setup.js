@@ -37,16 +37,20 @@ var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEye
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
 
 setupOpenNode.addEventListener('click', function () {
+  wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
+  wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
+  fireballSetupNode.addEventListener('click', changeFireballColorHandler);
+
   setupModalNode.classList.remove('invisible');
 });
 
 setupCloseNode.addEventListener('click', function () {
   setupModalNode.classList.add('invisible');
-});
 
-wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
-wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
-fireballSetupNode.addEventListener('click', changeFireballColorHandler);
+  wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
+  wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
+  fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
+});
 
 
 /** Change style property in element from array
