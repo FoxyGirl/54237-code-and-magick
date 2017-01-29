@@ -5,10 +5,10 @@
 
 var setupModalNode = document.querySelector('.setup');
 var setupOpenNode = document.querySelector('.setup-open');
-var setupCloseNode = document.querySelector('.setup-close');
+var setupCloseNode = setupModalNode.querySelector('.setup-close');
 var wizardCoatNode = document.getElementById('wizard-coat');
 var wizardEyesNode = document.getElementById('wizard-eyes');
-var fireballSetupNode = document.querySelector('.setup-fireball-wrap');
+var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
 var wizardCoatColors = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
