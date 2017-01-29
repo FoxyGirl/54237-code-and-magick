@@ -58,12 +58,9 @@ fireballSetupNode.addEventListener('click', changeFireballColorHandler);
  */
 function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
-  var element = elem;
-  var styleChangeProp = styleProp;
-  var arrChangeProp = arrProp;
 
   return function () {
-    counter = (counter < (arrChangeProp.length - 1)) ? (counter + 1) : 0;
-    element.style[styleChangeProp] = arrChangeProp[counter];
+    counter = (counter < (arrProp.length - 1)) ? (counter + 1) : 0;
+    elem.style[styleProp] = arrProp[counter];
   };
 }
