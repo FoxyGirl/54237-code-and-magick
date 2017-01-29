@@ -64,7 +64,7 @@ function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
 
   return function () {
-    counter = (counter < (arrProp.length - 1)) ? (counter + 1) : 0;
+    counter = counter < (arrProp.length - 1) ? counter + 1 : 0;
     elem.style[styleProp] = arrProp[counter];
   };
 }
