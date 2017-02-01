@@ -26,13 +26,15 @@
   <div class="demo"></div>
 
   <div class="setup-open">
-    <img src="./img/user-1.jpg" class="setup-open-icon">
+    <img src="./img/user-1.jpg" class="setup-open-icon" role="button" tabindex="0"
+      aria-pressed="false" aria-label="Setup open">
   </div>
 </header>
 
 <div class="overlay setup invisible">
   <form class="setup-wizard-form">
-    <span class="setup-close">&times;</span>
+    <span class="setup-close" role="button" tabindex="0" aria-pressed="false"
+          aria-label="Setup close">&times;</span>
 
     <div class="setup-user">
       <img class="setup-user-pic" src="./img/user-1.jpg" />
