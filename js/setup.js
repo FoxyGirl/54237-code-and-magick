@@ -32,17 +32,32 @@ var fireballSetupColors = [
   '#e848d5',
   '#e6e848'
 ];
+var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
+var SPACE_KEY_CODE = 32;
 
 var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
+
+var closeSetupModalKeyHandler = function (event) {
+  var isTargetSetupClose = event.target.classList.contains('setup-close');
+  var isEnter = (event.keyCode === ENTER_KEY_CODE) ? true : false;
+  var isEscape = (event.keyCode === ESCAPE_KEY_CODE) ? true : false;
+
+  if ((isTargetSetupClose && isEnter) || (isEscape)) {
+    hideSetupModal();
+  } else {
+    return;
+  }
+};
 
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
 });
 
 setupOpenNode.addEventListener('keydown', function (event) {
-  if (event.keyCode === 13) {
+  if (event.keyCode === ENTER_KEY_CODE) {
     showSetupModal();
   }
 });
@@ -51,11 +66,6 @@ setupCloseNode.addEventListener('click', function () {
   hideSetupModal();
 });
 
-setupCloseNode.addEventListener('keydown', function (event) {
-  if (event.keyCode === 27) {
-    hideSetupModal();
-  }
-});
 
 /** Show Setup Modal
  */
@@ -72,9 +82,10 @@ function showSetupModal() {
   wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
+  setupModalNode.addEventListener('keydown', closeSetupModalKeyHandler);
+
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
-  console.log('show'); // eslint-disable-line
 }
 
 /** Hide Setup Modal
@@ -85,6 +96,8 @@ function hideSetupModal() {
   wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
+
+  setupModalNode.removeEventListener('keydown', closeSetupModalKeyHandler);
 }
 
 /** Change style property in element from array
@@ -98,7 +111,7 @@ function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
 
   return function () {
-    if ((event.type === 'keydown') && (event.keyCode !== 32)) {
+    if ((event.type === 'keydown') && (event.keyCode !== SPACE_KEY_CODE)) {
       return;
     }
 
