@@ -9,6 +9,7 @@ var setupCloseNode = setupModalNode.querySelector('.setup-close');
 var wizardCoatNode = document.getElementById('wizard-coat');
 var wizardEyesNode = document.getElementById('wizard-eyes');
 var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
+var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
 var wizardCoatColors = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
@@ -37,6 +38,10 @@ var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEye
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
 
 setupOpenNode.addEventListener('click', function () {
+  if (!setupModalNode.classList.contains('invisible')) {
+    return;
+  }
+
   showSetupModal();
 });
 
@@ -50,20 +55,26 @@ setupCloseNode.addEventListener('click', function () {
   hideSetupModal();
 });
 
-setupOpenNode.addEventListener('keydown', function (event) {
+setupCloseNode.addEventListener('keydown', function (event) {
   if (event.keyCode === 27) {
     hideSetupModal();
   }
 });
 
+/** Show Setup Modal
+ */
 function showSetupModal() {
   wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('click', changeFireballColorHandler);
 
   setupModalNode.classList.remove('invisible');
+  setupUserNameNode.focus();
+  console.log('show'); // eslint-disable-line
 }
 
+/** Hide Setup Modal
+ */
 function hideSetupModal() {
   setupModalNode.classList.add('invisible');
 
@@ -71,7 +82,6 @@ function hideSetupModal() {
   wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
 }
-
 
 /** Change style property in element from array
  *
