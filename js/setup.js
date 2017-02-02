@@ -38,10 +38,6 @@ var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEye
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
 
 setupOpenNode.addEventListener('click', function () {
-  if (!setupModalNode.classList.contains('invisible')) {
-    return;
-  }
-
   showSetupModal();
 });
 
@@ -64,9 +60,17 @@ setupCloseNode.addEventListener('keydown', function (event) {
 /** Show Setup Modal
  */
 function showSetupModal() {
+  if (isShowSetupModal()) {
+    return;
+  }
+
   wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('click', changeFireballColorHandler);
+
+  wizardCoatNode.addEventListener('keydown', changeWizardCoatColorHandler);
+  wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
+  fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
@@ -94,7 +98,18 @@ function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
 
   return function () {
+    if ((event.type === 'keydown') && (event.keyCode !== 32)) {
+      return;
+    }
+
     counter = counter < (arrProp.length - 1) ? counter + 1 : 0;
     elem.style[styleProp] = arrProp[counter];
   };
+}
+
+/** Check is Setup Modal visible
+ *  @return {boolean} - true - if Setup Modal is visible : false - if Setup Modal is invisible
+ */
+function isShowSetupModal() {
+  return !setupModalNode.classList.contains('invisible');
 }
