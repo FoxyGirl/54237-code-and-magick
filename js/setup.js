@@ -55,7 +55,7 @@ var closeSetupModalKeyHandler = function (event) {
 
 var submitWizardFormHandler = function (event) {
   event.preventDefault();
-}
+};
 
 // setupWizardFormNode.addEventListener('submit', function (event) {
 //   event.preventDefault();
