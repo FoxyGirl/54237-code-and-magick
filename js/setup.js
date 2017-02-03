@@ -83,10 +83,10 @@ function showSetupModal() {
   wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
-  setupModalNode.addEventListener('keydown', closeSetupModalKeyHandler);
-
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
+
+  setupModalNode.addEventListener('keydown', closeSetupModalKeyHandler);
 }
 
 /**
@@ -98,6 +98,10 @@ function hideSetupModal() {
   wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
+
+  wizardCoatNode.addEventListener('keydown', changeWizardCoatColorHandler);
+  wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
+  fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
   setupModalNode.removeEventListener('keydown', closeSetupModalKeyHandler);
 }
