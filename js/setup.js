@@ -67,7 +67,8 @@ setupCloseNode.addEventListener('click', function () {
 });
 
 
-/** Show Setup Modal
+/**
+ * Show Setup Modal
  */
 function showSetupModal() {
   if (isShowSetupModal()) {
@@ -88,7 +89,8 @@ function showSetupModal() {
   setupUserNameNode.focus();
 }
 
-/** Hide Setup Modal
+/**
+ * Hide Setup Modal
  */
 function hideSetupModal() {
   setupModalNode.classList.add('invisible');
@@ -100,7 +102,8 @@ function hideSetupModal() {
   setupModalNode.removeEventListener('keydown', closeSetupModalKeyHandler);
 }
 
-/** Change style property in element from array
+/**
+ * Change style property in element from array
  *
  * @param {Element} elem - The element for changing style property
  * @param {string} styleProp - The changeable property.
@@ -120,7 +123,8 @@ function changeStyle(elem, styleProp, arrProp) {
   };
 }
 
-/** Check is Setup Modal visible
+/**
+ * Check is Setup Modal visible
  *  @return {boolean} - true - if Setup Modal is visible : false - if Setup Modal is invisible
  */
 function isShowSetupModal() {
