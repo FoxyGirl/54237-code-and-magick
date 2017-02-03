@@ -9,6 +9,7 @@ var setupCloseNode = setupModalNode.querySelector('.setup-close');
 var wizardCoatNode = document.getElementById('wizard-coat');
 var wizardEyesNode = document.getElementById('wizard-eyes');
 var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
+var setupWizardFormNode = setupModalNode.querySelector('.setup-wizard-form');
 var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
 var wizardCoatColors = [
   'rgb(101, 137, 164)',
@@ -52,12 +53,21 @@ var closeSetupModalKeyHandler = function (event) {
   }
 };
 
+var submitWizardFormHandler = function (event) {
+  event.preventDefault();
+}
+
+// setupWizardFormNode.addEventListener('submit', function (event) {
+//   event.preventDefault();
+// });
+
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
 });
 
 setupOpenNode.addEventListener('keydown', function (event) {
   if (event.keyCode === ENTER_KEY_CODE) {
+    setupWizardFormNode.addEventListener('submit', submitWizardFormHandler);
     showSetupModal();
   }
 });
