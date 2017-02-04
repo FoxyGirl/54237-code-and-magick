@@ -1,5 +1,0 @@
-*[role="button"]:focus,
-.setup-user-name:focus,
-.setup-submit:focus {
-  outline: 2px solid red;
-}
