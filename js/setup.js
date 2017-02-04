@@ -41,28 +41,15 @@ var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoa
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
 
-var closeSetupModalKeyHandler = function (event) {
-  var isTargetSetupClose = event.target.classList.contains('setup-close');
-  var isEnter = event.keyCode === ENTER_KEY_CODE;
-  var isEscape = event.keyCode === ESCAPE_KEY_CODE;
-
-  if ((isTargetSetupClose && isEnter) || isEscape) {
-    hideSetupModal();
-  } else {
-    return;
-  }
-};
-
-var submitWizardFormHandler = function (event) {
-  event.preventDefault();
-};
+var closeSetupModalKeyHandler = closeSetupModalKey();
+var submitWizardFormHandler = submitWizardForm();
 
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
 });
 
 setupOpenNode.addEventListener('keydown', function (event) {
-  if (event.keyCode === ENTER_KEY_CODE) {
+  if ((event.keyCode === ENTER_KEY_CODE) || (event.keyCode === SPACE_KEY_CODE)) {
     setupWizardFormNode.addEventListener('submit', submitWizardFormHandler);
     showSetupModal();
   }
@@ -92,7 +79,7 @@ function showSetupModal() {
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
 
-  setupModalNode.addEventListener('keydown', closeSetupModalKeyHandler);
+  document.addEventListener('keydown', closeSetupModalKeyHandler);
 }
 
 /**
@@ -139,4 +126,34 @@ function changeStyle(elem, styleProp, arrProp) {
  */
 function isShowSetupModal() {
   return !setupModalNode.classList.contains('invisible');
+}
+
+/**
+ * Close Setup Modal by keys
+ *
+ * @return {Function} - The function for callback
+ */
+function closeSetupModalKey() {
+  return function (event) {
+    var isTargetSetupClose = event.target.classList.contains('setup-close');
+    var isEnter = event.keyCode === ENTER_KEY_CODE;
+    var isEscape = event.keyCode === ESCAPE_KEY_CODE;
+
+    if ((isTargetSetupClose && isEnter) || isEscape) {
+      hideSetupModal();
+    } else {
+      return;
+    }
+  };
+}
+
+/**
+ * Correct submit of Wizard Form
+ *
+ * @return {Function} - The function for callback
+ */
+function submitWizardForm() {
+  return function (event) {
+    event.preventDefault();
+  };
 }
