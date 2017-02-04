@@ -43,10 +43,10 @@ var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fi
 
 var closeSetupModalKeyHandler = function (event) {
   var isTargetSetupClose = event.target.classList.contains('setup-close');
-  var isEnter = (event.keyCode === ENTER_KEY_CODE) ? true : false;
-  var isEscape = (event.keyCode === ESCAPE_KEY_CODE) ? true : false;
+  var isEnter = event.keyCode === ENTER_KEY_CODE;
+  var isEscape = event.keyCode === ESCAPE_KEY_CODE;
 
-  if ((isTargetSetupClose && isEnter) || (isEscape)) {
+  if ((isTargetSetupClose && isEnter) || isEscape) {
     hideSetupModal();
   } else {
     return;
@@ -56,10 +56,6 @@ var closeSetupModalKeyHandler = function (event) {
 var submitWizardFormHandler = function (event) {
   event.preventDefault();
 };
-
-// setupWizardFormNode.addEventListener('submit', function (event) {
-//   event.preventDefault();
-// });
 
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
@@ -109,9 +105,9 @@ function hideSetupModal() {
   wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
 
-  wizardCoatNode.addEventListener('keydown', changeWizardCoatColorHandler);
-  wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
-  fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
+  wizardCoatNode.removeEventListener('keydown', changeWizardCoatColorHandler);
+  wizardEyesNode.removeEventListener('keydown', changeWizardEyesColorHandler);
+  fireballSetupNode.removeEventListener('keydown', changeFireballColorHandler);
 
   setupModalNode.removeEventListener('keydown', closeSetupModalKeyHandler);
 }
