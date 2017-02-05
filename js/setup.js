@@ -84,10 +84,6 @@ setupSubmit.addEventListener('keydown', function (event) {
  * Show Setup Modal
  */
 function showSetupModal() {
-  if (isShowSetupModal()) {
-    return;
-  }
-
   wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('click', changeFireballColorHandler);
@@ -138,14 +134,6 @@ function changeStyle(elem, styleProp, arrProp) {
     counter = counter < (arrProp.length - 1) ? counter + 1 : 0;
     elem.style[styleProp] = arrProp[counter];
   };
-}
-
-/**
- * Check is Setup Modal visible
- *  @return {boolean} - true - if Setup Modal is visible : false - if Setup Modal is invisible
- */
-function isShowSetupModal() {
-  return !setupModalNode.classList.contains('invisible');
 }
 
 /**
