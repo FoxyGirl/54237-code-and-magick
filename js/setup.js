@@ -72,6 +72,10 @@ setupSubmit.addEventListener('keydown', function (event) {
     setupCloseNode.focus();
   }
 
+  if (event.keyCode === TAB_KEY_CODE && event.shiftKey) {
+    setupUserNameNode.focus();
+  }
+
   if (event.keyCode === ENTER_KEY_CODE) {
     setupWizardFormNode.remove('submit', submitWizardFormHandler);
     hideSetupModal();
