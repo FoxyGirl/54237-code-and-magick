@@ -11,6 +11,7 @@ var wizardEyesNode = document.getElementById('wizard-eyes');
 var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
 var setupWizardFormNode = setupModalNode.querySelector('.setup-wizard-form');
 var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
+var setupSubmit = setupModalNode.querySelector('.setup-submit');
 var wizardCoatColors = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
@@ -36,6 +37,7 @@ var fireballSetupColors = [
 var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
+var TAB_KEY_CODE = 9;
 
 var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
@@ -49,7 +51,7 @@ setupOpenNode.addEventListener('click', function () {
 });
 
 setupOpenNode.addEventListener('keydown', function (event) {
-  if ((event.keyCode === ENTER_KEY_CODE) || (event.keyCode === SPACE_KEY_CODE)) {
+  if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
     setupWizardFormNode.addEventListener('submit', submitWizardFormHandler);
     showSetupModal();
   }
@@ -57,6 +59,24 @@ setupOpenNode.addEventListener('keydown', function (event) {
 
 setupCloseNode.addEventListener('click', function () {
   hideSetupModal();
+});
+
+setupCloseNode.addEventListener('keydown', function (event) {
+  if (event.keyCode === TAB_KEY_CODE && event.shiftKey) {
+    setupUserNameNode.focus();
+  }
+});
+
+setupSubmit.addEventListener('keydown', function (event) {
+  if (event.keyCode === TAB_KEY_CODE) {
+    setupCloseNode.focus();
+  }
+
+  if (event.keyCode === ENTER_KEY_CODE) {
+    setupWizardFormNode.remove('submit', submitWizardFormHandler);
+    hideSetupModal();
+    setupWizardFormNode.submit();
+  }
 });
 
 
@@ -111,7 +131,7 @@ function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
 
   return function () {
-    if ((event.type === 'keydown') && (event.keyCode !== SPACE_KEY_CODE)) {
+    if (event.type === 'keydown' && event.keyCode !== SPACE_KEY_CODE) {
       return;
     }
 
@@ -139,7 +159,7 @@ function closeSetupModalKey() {
     var isEnter = event.keyCode === ENTER_KEY_CODE;
     var isEscape = event.keyCode === ESCAPE_KEY_CODE;
 
-    if ((isTargetSetupClose && isEnter) || isEscape) {
+    if (isTargetSetupClose && isEnter || isEscape) {
       hideSetupModal();
     } else {
       return;
