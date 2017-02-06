@@ -39,6 +39,8 @@ var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
 var TAB_KEY_CODE = 9;
 
+var curElement = document.activeElement;
+
 var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
@@ -159,3 +161,9 @@ function closeSetupModalKeyHandler() {
 function submitWizardFormHandler(event) {
   event.preventDefault();
 }
+
+document.addEventListener('keydown', function () {
+  curElement = document.activeElement;
+  console.log('curElement = ' + curElement);  // eslint-disable-line
+});
+
