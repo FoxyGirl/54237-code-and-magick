@@ -43,9 +43,6 @@ var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoa
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
 var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
 
-var closeSetupModalKeyHandler = closeSetupModalKey();
-var submitWizardFormHandler = submitWizardForm();
-
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
 });
@@ -82,7 +79,6 @@ setupSubmit.addEventListener('keydown', function (event) {
     setupWizardFormNode.submit();
   }
 });
-
 
 /**
  * Show Setup Modal
@@ -142,30 +138,24 @@ function changeStyle(elem, styleProp, arrProp) {
 
 /**
  * Close Setup Modal by keys
- *
- * @return {Function} - The function for callback
  */
-function closeSetupModalKey() {
-  return function (event) {
-    var isTargetSetupClose = event.target.classList.contains('setup-close');
-    var isEnter = event.keyCode === ENTER_KEY_CODE;
-    var isEscape = event.keyCode === ESCAPE_KEY_CODE;
+function closeSetupModalKeyHandler() {
+  var isTargetSetupClose = event.target.classList.contains('setup-close');
+  var isEnter = event.keyCode === ENTER_KEY_CODE;
+  var isEscape = event.keyCode === ESCAPE_KEY_CODE;
 
-    if (isTargetSetupClose && isEnter || isEscape) {
-      hideSetupModal();
-    } else {
-      return;
-    }
-  };
+  if (isTargetSetupClose && isEnter || isEscape) {
+    hideSetupModal();
+  } else {
+    return;
+  }
 }
 
 /**
  * Correct submit of Wizard Form
  *
- * @return {Function} - The function for callback
+ * @param {Event} event - The Event
  */
-function submitWizardForm() {
-  return function (event) {
-    event.preventDefault();
-  };
+function submitWizardFormHandler(event) {
+  event.preventDefault();
 }
