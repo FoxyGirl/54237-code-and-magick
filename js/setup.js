@@ -39,6 +39,7 @@ var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
 
 var activeElement = null;
+var currentElement = null;
 
 var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
@@ -67,6 +68,8 @@ setupSubmit.addEventListener('keydown', function (event) {
  * Show Setup Modal
  */
 function showSetupModal() {
+  currentElement = document.activeElement;
+
   wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('click', changeFireballColorHandler);
@@ -91,6 +94,7 @@ function showSetupModal() {
  */
 function hideSetupModal() {
   setupModalNode.classList.add('invisible');
+  currentElement.focus();
 
   wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
   wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
