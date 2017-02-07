@@ -49,6 +49,7 @@ setupOpenNode.addEventListener('click', function () {
 
 setupOpenNode.addEventListener('keydown', function (event) {
   if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
+    event.stopPropagation();
     setupWizardFormNode.addEventListener('submit', submitWizardFormHandler);
     showSetupModal();
   }
@@ -149,6 +150,7 @@ function closeSetupModalKeyHandler(event) {
  */
 function closeBtnSetupModalHandler(event) {
   if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE || event.type === 'click') {
+    event.stopPropagation();
     hideSetupModal();
   }
 }
