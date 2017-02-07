@@ -80,7 +80,7 @@ function showSetupModal() {
   setupCloseNode.addEventListener('keydown', closeBtnSetupModalHandler);
   setupCloseNode.addEventListener('click', closeBtnSetupModalHandler);
 
-  document.addEventListener('keydown', lockSetupModalHandler);
+  document.addEventListener('focus', lockSetupModalHandler, true);
 
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
@@ -105,7 +105,7 @@ function hideSetupModal() {
   setupCloseNode.removeEventListener('keydown', closeBtnSetupModalHandler);
   setupCloseNode.removeEventListener('click', closeBtnSetupModalHandler);
 
-  document.removeEventListener('keydown', lockSetupModalHandler);
+  document.removeEventListener('focus', lockSetupModalHandler, true);
 }
 
 /**
@@ -164,8 +164,6 @@ function submitWizardFormHandler(event) {
  */
 function lockSetupModalHandler() {
   activeElement = document.activeElement;
-  console.log('activeElement = ' + activeElement.tagName);  // eslint-disable-line
-  console.log('activeElementInSetupModal = ' + setupModalNode.contains(activeElement));  // eslint-disable-line
   if (!setupModalNode.contains(activeElement)) {
     setupCloseNode.focus();
   }
