@@ -164,7 +164,8 @@ function submitWizardFormHandler(event) {
  */
 function lockSetupModalHandler() {
   activeElement = document.activeElement;
-  console.log('activeElement = ' + setupModalNode.contains(activeElement));  // eslint-disable-line
+  console.log('activeElement = ' + activeElement.tagName);  // eslint-disable-line
+  console.log('activeElementInSetupModal = ' + setupModalNode.contains(activeElement));  // eslint-disable-line
   if (!setupModalNode.contains(activeElement)) {
     setupCloseNode.focus();
   }
