@@ -37,9 +37,8 @@ var fireballSetupColors = [
 var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
-var TAB_KEY_CODE = 9;
 
-var curElement = document.activeElement;
+var activeElement = null;
 
 var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
 var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
@@ -56,25 +55,7 @@ setupOpenNode.addEventListener('keydown', function (event) {
   }
 });
 
-setupCloseNode.addEventListener('click', function () {
-  hideSetupModal();
-});
-
-setupCloseNode.addEventListener('keydown', function (event) {
-  if (event.keyCode === TAB_KEY_CODE && event.shiftKey) {
-    setupUserNameNode.focus();
-  }
-});
-
 setupSubmit.addEventListener('keydown', function (event) {
-  if (event.keyCode === TAB_KEY_CODE) {
-    setupCloseNode.focus();
-  }
-
-  if (event.keyCode === TAB_KEY_CODE && event.shiftKey) {
-    setupUserNameNode.focus();
-  }
-
   if (event.keyCode === ENTER_KEY_CODE) {
     setupWizardFormNode.remove('submit', submitWizardFormHandler);
     hideSetupModal();
@@ -94,10 +75,15 @@ function showSetupModal() {
   wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
   fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
+  document.addEventListener('keydown', closeSetupModalKeyHandler);
+
+  setupCloseNode.addEventListener('keydown', closeBtnSetupModalHandler);
+  setupCloseNode.addEventListener('click', closeBtnSetupModalHandler);
+
+  document.addEventListener('keydown', lockSetupModalHandler);
+
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
-
-  document.addEventListener('keydown', closeSetupModalKeyHandler);
 }
 
 /**
@@ -114,7 +100,12 @@ function hideSetupModal() {
   wizardEyesNode.removeEventListener('keydown', changeWizardEyesColorHandler);
   fireballSetupNode.removeEventListener('keydown', changeFireballColorHandler);
 
-  setupModalNode.removeEventListener('keydown', closeSetupModalKeyHandler);
+  document.removeEventListener('keydown', closeSetupModalKeyHandler);
+
+  setupCloseNode.removeEventListener('keydown', closeBtnSetupModalHandler);
+  setupCloseNode.removeEventListener('click', closeBtnSetupModalHandler);
+
+  document.removeEventListener('keydown', lockSetupModalHandler);
 }
 
 /**
@@ -142,11 +133,17 @@ function changeStyle(elem, styleProp, arrProp) {
  * Close Setup Modal by keys
  */
 function closeSetupModalKeyHandler() {
-  var isTargetSetupClose = event.target.classList.contains('setup-close');
-  var isEnter = event.keyCode === ENTER_KEY_CODE;
-  var isEscape = event.keyCode === ESCAPE_KEY_CODE;
-
-  if (isTargetSetupClose && isEnter || isEscape) {
+  if (event.keyCode === ESCAPE_KEY_CODE) {
+    hideSetupModal();
+  } else {
+    return;
+  }
+}
+/**
+ * Close Setup Modal by keys from close button
+ */
+function closeBtnSetupModalHandler() {
+  if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE || event.type === 'click') {
     hideSetupModal();
   } else {
     return;
@@ -162,8 +159,13 @@ function submitWizardFormHandler(event) {
   event.preventDefault();
 }
 
-document.addEventListener('keydown', function () {
-  curElement = document.activeElement;
-  console.log('curElement = ' + curElement);  // eslint-disable-line
-});
-
+/**
+ * Lock Setup Modal
+ */
+function lockSetupModalHandler() {
+  activeElement = document.activeElement;
+  console.log('activeElement = ' + setupModalNode.contains(activeElement));  // eslint-disable-line
+  if (!setupModalNode.contains(activeElement)) {
+    setupCloseNode.focus();
+  }
+}
