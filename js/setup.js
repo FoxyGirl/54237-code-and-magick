@@ -37,8 +37,6 @@ var fireballSetupColors = [
 var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
-
-var activeElement = null;
 var currentElement = null;
 
 var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
@@ -58,7 +56,7 @@ setupOpenNode.addEventListener('keydown', function (event) {
 
 setupSubmit.addEventListener('keydown', function (event) {
   if (event.keyCode === ENTER_KEY_CODE) {
-    setupWizardFormNode.remove('submit', submitWizardFormHandler);
+    setupWizardFormNode.removeEventListener('submit', submitWizardFormHandler);
     hideSetupModal();
     setupWizardFormNode.submit();
   }
@@ -123,7 +121,7 @@ function hideSetupModal() {
 function changeStyle(elem, styleProp, arrProp) {
   var counter = 0;
 
-  return function () {
+  return function (event) {
     if (event.type === 'keydown' && event.keyCode !== SPACE_KEY_CODE) {
       return;
     }
@@ -135,22 +133,23 @@ function changeStyle(elem, styleProp, arrProp) {
 
 /**
  * Close Setup Modal by keys
+ *
+ * @param {Event} event - The Event
  */
-function closeSetupModalKeyHandler() {
+function closeSetupModalKeyHandler(event) {
   if (event.keyCode === ESCAPE_KEY_CODE) {
     hideSetupModal();
-  } else {
-    return;
   }
 }
+
 /**
  * Close Setup Modal by keys from close button
+ *
+ * @param {Event} event - The Event
  */
-function closeBtnSetupModalHandler() {
+function closeBtnSetupModalHandler(event) {
   if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE || event.type === 'click') {
     hideSetupModal();
-  } else {
-    return;
   }
 }
 
@@ -167,8 +166,7 @@ function submitWizardFormHandler(event) {
  * Lock Setup Modal
  */
 function lockSetupModalHandler() {
-  activeElement = document.activeElement;
-  if (!setupModalNode.contains(activeElement)) {
+  if (!setupModalNode.contains(document.activeElement)) {
     setupCloseNode.focus();
   }
 }
