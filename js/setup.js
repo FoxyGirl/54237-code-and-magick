@@ -6,6 +6,7 @@
 var setupModalNode = document.querySelector('.setup');
 var setupOpenNode = document.querySelector('.setup-open');
 var setupCloseNode = setupModalNode.querySelector('.setup-close');
+var setupWizardFormNode = setupModalNode.querySelector('.setup-wizard-form');
 var wizardCoatNode = document.getElementById('wizard-coat');
 var wizardEyesNode = document.getElementById('wizard-eyes');
 var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
@@ -72,6 +73,8 @@ function showSetupModal() {
   setupCloseNode.addEventListener('keydown', closeBtnSetupModalHandler);
   setupCloseNode.addEventListener('click', closeBtnSetupModalHandler);
 
+  setupWizardFormNode.addEventListener('submit', closeSubmitSetupModalHandler);
+
   document.addEventListener('focus', lockSetupModalHandler, true);
 
   setupModalNode.classList.remove('invisible');
@@ -97,6 +100,8 @@ function hideSetupModal() {
 
   setupCloseNode.removeEventListener('keydown', closeBtnSetupModalHandler);
   setupCloseNode.removeEventListener('click', closeBtnSetupModalHandler);
+
+  setupWizardFormNode.removeEventListener('submit', closeSubmitSetupModalHandler);
 
   document.removeEventListener('focus', lockSetupModalHandler, true);
 }
@@ -152,4 +157,16 @@ function lockSetupModalHandler() {
   if (!setupModalNode.contains(document.activeElement)) {
     setupCloseNode.focus();
   }
+}
+
+
+/**
+ * Close Setup Modal after submit from
+ *
+ * @param {Event} event - The Event
+ */
+function closeSubmitSetupModalHandler(event) {
+  event.preventDefault();
+  console.log('Тут мы отправляем форму как-то и закрываем окно!!!'); // eslint-disable-line
+  hideSetupModal();
 }
