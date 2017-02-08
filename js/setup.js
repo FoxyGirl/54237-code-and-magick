@@ -9,9 +9,7 @@ var setupCloseNode = setupModalNode.querySelector('.setup-close');
 var wizardCoatNode = document.getElementById('wizard-coat');
 var wizardEyesNode = document.getElementById('wizard-eyes');
 var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
-var setupWizardFormNode = setupModalNode.querySelector('.setup-wizard-form');
 var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
-var setupSubmit = setupModalNode.querySelector('.setup-submit');
 var wizardCoatColors = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
@@ -50,16 +48,8 @@ setupOpenNode.addEventListener('click', function () {
 setupOpenNode.addEventListener('keydown', function (event) {
   if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
     event.stopPropagation();
-    setupWizardFormNode.addEventListener('submit', submitWizardFormHandler);
+    event.preventDefault();
     showSetupModal();
-  }
-});
-
-setupSubmit.addEventListener('keydown', function (event) {
-  if (event.keyCode === ENTER_KEY_CODE) {
-    setupWizardFormNode.removeEventListener('submit', submitWizardFormHandler);
-    hideSetupModal();
-    setupWizardFormNode.submit();
   }
 });
 
@@ -153,15 +143,6 @@ function closeBtnSetupModalHandler(event) {
     event.stopPropagation();
     hideSetupModal();
   }
-}
-
-/**
- * Correct submit of Wizard Form
- *
- * @param {Event} event - The Event
- */
-function submitWizardFormHandler(event) {
-  event.preventDefault();
 }
 
 /**
