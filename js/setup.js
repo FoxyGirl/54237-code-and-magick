@@ -77,6 +77,8 @@ function showSetupModal() {
 
   document.addEventListener('focus', lockSetupModalHandler, true);
 
+  setupModalNode.addEventListener('keydown', preventDefaultOfSpaseHandler);
+
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
 }
@@ -104,6 +106,8 @@ function hideSetupModal() {
   setupWizardFormNode.removeEventListener('submit', closeSubmitSetupModalHandler);
 
   document.removeEventListener('focus', lockSetupModalHandler, true);
+
+  setupModalNode.removeEventListener('keydown', preventDefaultOfSpaseHandler);
 }
 
 /**
@@ -159,7 +163,6 @@ function lockSetupModalHandler() {
   }
 }
 
-
 /**
  * Close Setup Modal after submit from
  *
@@ -169,4 +172,16 @@ function closeSubmitSetupModalHandler(event) {
   event.preventDefault();
   console.log('Тут мы отправляем форму как-то и закрываем окно!!!'); // eslint-disable-line
   hideSetupModal();
+}
+
+/**
+ * Prevent default of Spase key
+ *
+ * @param {Event} event - The Event
+ */
+function preventDefaultOfSpaseHandler(event) {
+  if (event.keyCode === SPACE_KEY_CODE) {
+    event.preventDefault(); // Чтобы не скролилось окно
+    event.stopPropagation(); // Чтобы не дошло до window
+  }
 }
