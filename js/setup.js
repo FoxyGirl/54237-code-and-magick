@@ -38,9 +38,9 @@ var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
 var prevFocusedElement = null;
 
-var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
-var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
-var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
+window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
+window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
+window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
 
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
@@ -59,14 +59,6 @@ setupOpenNode.addEventListener('keydown', function (event) {
  */
 function showSetupModal() {
   prevFocusedElement = document.activeElement;
-
-  wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
-  wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
-  fireballSetupNode.addEventListener('click', changeFireballColorHandler);
-
-  wizardCoatNode.addEventListener('keydown', changeWizardCoatColorHandler);
-  wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
-  fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
   document.addEventListener('keydown', closeSetupModalKeyHandler);
 
@@ -90,14 +82,6 @@ function hideSetupModal() {
   setupModalNode.classList.add('invisible');
   prevFocusedElement.focus();
 
-  wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
-  wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
-  fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
-
-  wizardCoatNode.removeEventListener('keydown', changeWizardCoatColorHandler);
-  wizardEyesNode.removeEventListener('keydown', changeWizardEyesColorHandler);
-  fireballSetupNode.removeEventListener('keydown', changeFireballColorHandler);
-
   document.removeEventListener('keydown', closeSetupModalKeyHandler);
 
   setupCloseNode.removeEventListener('keydown', closeBtnSetupModalHandler);
@@ -108,27 +92,6 @@ function hideSetupModal() {
   document.removeEventListener('focus', lockSetupModalHandler, true);
 
   setupModalNode.removeEventListener('keydown', preventDefaultOfSpaseHandler);
-}
-
-/**
- * Change style property in element from array
- *
- * @param {Element} elem - The element for changing style property
- * @param {string} styleProp - The changeable property.
- * @param {Array} arrProp - The array of property values
- * @return {Function} - The function for callback
- */
-function changeStyle(elem, styleProp, arrProp) {
-  var counter = 0;
-
-  return function (event) {
-    if (event.type === 'keydown' && event.keyCode !== SPACE_KEY_CODE) {
-      return;
-    }
-
-    counter = counter < (arrProp.length - 1) ? counter + 1 : 0;
-    elem.style[styleProp] = arrProp[counter];
-  };
 }
 
 /**

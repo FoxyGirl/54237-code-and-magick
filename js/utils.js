@@ -11,7 +11,7 @@ window.utils = {
   getRandomElementExcept: function (array, item) {
     var newColor = null;
     do {
-      newColor = array[this.getRandomElement(array)];
+      newColor = this.getRandomElement(array);
     } while (newColor === item);
     return newColor;
   }
