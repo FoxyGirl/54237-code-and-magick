@@ -55,7 +55,7 @@ setupOpenNode.addEventListener('keydown', function (event) {
 });
 
 /**
- * Show Setup Modal
+ * Show Setup Modal.
  */
 function showSetupModal() {
   prevFocusedElement = document.activeElement;
@@ -84,7 +84,7 @@ function showSetupModal() {
 }
 
 /**
- * Hide Setup Modal
+ * Hide Setup Modal.
  */
 function hideSetupModal() {
   setupModalNode.classList.add('invisible');
@@ -111,9 +111,9 @@ function hideSetupModal() {
 }
 
 /**
- * Close Setup Modal by keys
+ * Close Setup Modal by keys.
  *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function closeSetupModalKeyHandler(event) {
   if (event.keyCode === ESCAPE_KEY_CODE) {
@@ -122,9 +122,9 @@ function closeSetupModalKeyHandler(event) {
 }
 
 /**
- * Close Setup Modal by keys from close button
+ * Close Setup Modal by keys from close button.
  *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function closeBtnSetupModalHandler(event) {
   if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE || event.type === 'click') {
@@ -134,7 +134,7 @@ function closeBtnSetupModalHandler(event) {
 }
 
 /**
- * Lock Setup Modal
+ * Lock Setup Modal.
  */
 function lockSetupModalHandler() {
   if (!setupModalNode.contains(document.activeElement)) {
@@ -143,9 +143,9 @@ function lockSetupModalHandler() {
 }
 
 /**
- * Close Setup Modal after submit from
+ * Close Setup Modal after submit form.
  *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function closeSubmitSetupModalHandler(event) {
   event.preventDefault();
@@ -153,9 +153,9 @@ function closeSubmitSetupModalHandler(event) {
 }
 
 /**
- * Prevent default of Spase key
+ * Prevent default of Spase key.
  *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function preventDefaultOfSpaseHandler(event) {
   if (event.keyCode === SPACE_KEY_CODE) {
