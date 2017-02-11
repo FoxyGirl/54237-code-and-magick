@@ -38,9 +38,9 @@ var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
 var prevFocusedElement = null;
 
-window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
-window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
-window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
+var changeWizardCoatColorHandler = window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
+var changeWizardEyesColorHandler = window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
+var changeFireballColorHandler = window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
 
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
@@ -59,6 +59,14 @@ setupOpenNode.addEventListener('keydown', function (event) {
  */
 function showSetupModal() {
   prevFocusedElement = document.activeElement;
+
+  wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
+  wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
+  fireballSetupNode.addEventListener('click', changeFireballColorHandler);
+
+  wizardCoatNode.addEventListener('keydown', changeWizardCoatColorHandler);
+  wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
+  fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
   document.addEventListener('keydown', closeSetupModalKeyHandler);
 
@@ -81,6 +89,14 @@ function showSetupModal() {
 function hideSetupModal() {
   setupModalNode.classList.add('invisible');
   prevFocusedElement.focus();
+
+  wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
+  wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
+  fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
+
+  wizardCoatNode.removeEventListener('keydown', changeWizardCoatColorHandler);
+  wizardEyesNode.removeEventListener('keydown', changeWizardEyesColorHandler);
+  fireballSetupNode.removeEventListener('keydown', changeFireballColorHandler);
 
   document.removeEventListener('keydown', closeSetupModalKeyHandler);
 
@@ -133,7 +149,6 @@ function lockSetupModalHandler() {
  */
 function closeSubmitSetupModalHandler(event) {
   event.preventDefault();
-  console.log('Тут мы отправляем форму как-то и закрываем окно!!!'); // eslint-disable-line
   hideSetupModal();
 }
 
