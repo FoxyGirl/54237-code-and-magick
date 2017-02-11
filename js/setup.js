@@ -38,9 +38,9 @@ var ESCAPE_KEY_CODE = 27;
 var SPACE_KEY_CODE = 32;
 var prevFocusedElement = null;
 
-var changeWizardCoatColorHandler = changeStyle(wizardCoatNode, 'fill', wizardCoatColors);
-var changeWizardEyesColorHandler = changeStyle(wizardEyesNode, 'fill', wizardEyesColors);
-var changeFireballColorHandler = changeStyle(fireballSetupNode, 'background', fireballSetupColors);
+var changeWizardCoatColorHandler = window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
+var changeWizardEyesColorHandler = window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
+var changeFireballColorHandler = window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
 
 setupOpenNode.addEventListener('click', function () {
   showSetupModal();
@@ -55,7 +55,7 @@ setupOpenNode.addEventListener('keydown', function (event) {
 });
 
 /**
- * Show Setup Modal
+ * Show Setup Modal.
  */
 function showSetupModal() {
   prevFocusedElement = document.activeElement;
@@ -77,12 +77,14 @@ function showSetupModal() {
 
   document.addEventListener('focus', lockSetupModalHandler, true);
 
+  setupModalNode.addEventListener('keydown', preventDefaultOfSpaseHandler);
+
   setupModalNode.classList.remove('invisible');
   setupUserNameNode.focus();
 }
 
 /**
- * Hide Setup Modal
+ * Hide Setup Modal.
  */
 function hideSetupModal() {
   setupModalNode.classList.add('invisible');
@@ -104,33 +106,14 @@ function hideSetupModal() {
   setupWizardFormNode.removeEventListener('submit', closeSubmitSetupModalHandler);
 
   document.removeEventListener('focus', lockSetupModalHandler, true);
+
+  setupModalNode.removeEventListener('keydown', preventDefaultOfSpaseHandler);
 }
 
 /**
- * Change style property in element from array
+ * Close Setup Modal by keys.
  *
- * @param {Element} elem - The element for changing style property
- * @param {string} styleProp - The changeable property.
- * @param {Array} arrProp - The array of property values
- * @return {Function} - The function for callback
- */
-function changeStyle(elem, styleProp, arrProp) {
-  var counter = 0;
-
-  return function (event) {
-    if (event.type === 'keydown' && event.keyCode !== SPACE_KEY_CODE) {
-      return;
-    }
-
-    counter = counter < (arrProp.length - 1) ? counter + 1 : 0;
-    elem.style[styleProp] = arrProp[counter];
-  };
-}
-
-/**
- * Close Setup Modal by keys
- *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function closeSetupModalKeyHandler(event) {
   if (event.keyCode === ESCAPE_KEY_CODE) {
@@ -139,9 +122,9 @@ function closeSetupModalKeyHandler(event) {
 }
 
 /**
- * Close Setup Modal by keys from close button
+ * Close Setup Modal by keys from close button.
  *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function closeBtnSetupModalHandler(event) {
   if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE || event.type === 'click') {
@@ -151,7 +134,7 @@ function closeBtnSetupModalHandler(event) {
 }
 
 /**
- * Lock Setup Modal
+ * Lock Setup Modal.
  */
 function lockSetupModalHandler() {
   if (!setupModalNode.contains(document.activeElement)) {
@@ -159,14 +142,24 @@ function lockSetupModalHandler() {
   }
 }
 
-
 /**
- * Close Setup Modal after submit from
+ * Close Setup Modal after submit form.
  *
- * @param {Event} event - The Event
+ * @param {Event} event - The Event.
  */
 function closeSubmitSetupModalHandler(event) {
   event.preventDefault();
-  console.log('Тут мы отправляем форму как-то и закрываем окно!!!'); // eslint-disable-line
   hideSetupModal();
+}
+
+/**
+ * Prevent default of Spase key.
+ *
+ * @param {Event} event - The Event.
+ */
+function preventDefaultOfSpaseHandler(event) {
+  if (event.keyCode === SPACE_KEY_CODE) {
+    event.preventDefault(); // Чтобы не скролилось окно
+    event.stopPropagation(); // Чтобы не дошло до window
+  }
 }
