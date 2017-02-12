@@ -11,15 +11,17 @@
  * @param {string} property - The changeable property.
  * @return {Function} - The function for callback.
  */
-window.colorizeElement = function (element, colors, property) {
-  var currentColor = colors[0];
-  var ENTER_KEY_CODE = 13;
+window.colorizeElement = (function () {
+  return function (element, colors, property) {
+    var currentColor = colors[0];
+    var ENTER_KEY_CODE = 13;
 
-  return function (event) {
-    if (event.type === 'keydown' && event.keyCode !== ENTER_KEY_CODE) {
-      return;
-    }
-    currentColor = window.utils.getRandomElementExcept(colors, currentColor);
-    element.style[property] = currentColor;
+    return function (event) {
+      if (event.type === 'keydown' && event.keyCode !== ENTER_KEY_CODE) {
+        return;
+      }
+      currentColor = window.utils.getRandomElementExcept(colors, currentColor);
+      element.style[property] = currentColor;
+    };
   };
-};
+})();

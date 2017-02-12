@@ -6,17 +6,19 @@
 /**
  * @module utils
  * */
-window.utils = {
+window.utils = (function () {
   /**
+   * @private
    * Generate random element form array.
    *
    * @param {Array} array - The array of elements.
    * @return {string} The random element form array.
    */
-  getRandomElement: function (array) {
+  function getRandomElement(array) {
     var randomElementIndex = Math.floor(Math.random() * array.length);
     return array[randomElementIndex];
-  },
+  }
+
   /**
    * Generate random element form array excepting item.
    *
@@ -24,11 +26,15 @@ window.utils = {
    * @param {string} item - The item for exception.
    * @return {string} The random element form array excepting item.
    */
-  getRandomElementExcept: function (array, item) {
+  function getRandomElementExcept(array, item) {
     var newColor = null;
     do {
-      newColor = this.getRandomElement(array);
+      newColor = getRandomElement(array);
     } while (newColor === item);
     return newColor;
   }
-};
+
+  return {
+    getRandomElementExcept: getRandomElementExcept
+  };
+})();
