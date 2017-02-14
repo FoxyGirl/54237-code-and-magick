@@ -7,6 +7,16 @@
  * @module utils
  * */
 window.utils = (function () {
+  var ENTER_KEY_CODE = 13;
+  var SPACE_KEY_CODE = 32;
+  var ESCAPE_KEY_CODE = 27;
+
+  return {
+    getRandomElementExcept: getRandomElementExcept,
+    isActivationEvent: isActivationEvent,
+    isDeactivationEvent: isDeactivationEvent
+  };
+
   /**
    * Generate random element form array.
    * @private
@@ -32,7 +42,26 @@ window.utils = (function () {
     return newColor;
   }
 
-  return {
-    getRandomElementExcept: getRandomElementExcept
-  };
+  /**
+  * Control activation event from keyboard.
+  * @param {Event} event - The Event.
+  * @return {boolean} If is activation event from keyboard - true, else - false.
+  */
+  function isActivationEvent(event) {
+    return isKeyboardEvent(event) && (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE);
+  }
+
+  /**
+  * Control deactivation event from keyboard.
+  * @param {Event} event - The Event.
+  * @return {boolean} If is activation event from keyboard - true, else - false.
+  */
+  function isDeactivationEvent(event) {
+    return isKeyboardEvent(event) && event.keyCode === ESCAPE_KEY_CODE;
+  }
+
+  function isKeyboardEvent(event) {
+    return typeof event.keyCode !== 'undefined';
+  }
+
 })();

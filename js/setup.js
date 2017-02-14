@@ -10,7 +10,7 @@
   var wizardCoatNode = document.getElementById('wizard-coat');
   var wizardEyesNode = document.getElementById('wizard-eyes');
   var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
-  var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
+  // var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
   var wizardCoatColors = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -36,29 +36,63 @@
   var ENTER_KEY_CODE = 13;
   var ESCAPE_KEY_CODE = 27;
   var SPACE_KEY_CODE = 32;
-  var prevFocusedElement = null;
+  // var prevFocusedElement = null;
 
   var changeWizardCoatColorHandler = window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
   var changeWizardEyesColorHandler = window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
   var changeFireballColorHandler = window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
 
+  // var focusOpenButton = function() {
+  //   setupOpenNode.focus();
+  // };
+
+  // var onSetupKeydown = function(event) {
+  //   if (window.utils.isActivationEvent(event)) {
+  //     event.stopPropagation();
+  //     event.preventDefault();
+  //     window.enableSetup(focusOpenButton);
+  //   }
+  // };
+
+  setupOpenNode.addEventListener('keydown', onSetupKeydownHandler);
+  setupOpenNode.addEventListener('click', onSetupClickHandler);
+
+  function onSetupKeydownHandler(event) {
+    if (window.utils.isActivationEvent(event)) {
+      event.stopPropagation();
+      event.preventDefault();
+      showSetupModal();
+      window.enableSetup(focusOpenButton);
+    }
+  }
+
+  function onSetupClickHandler(event) {
+    event.preventDefault();
+    window.enableSetup();
+  }
+
+  function focusOpenButton() {
+    setupOpenNode.focus();
+  }
+/**************************************/ //eslint-disable-line
+
   setupOpenNode.addEventListener('click', function () {
     showSetupModal();
   });
-
+/*
   setupOpenNode.addEventListener('keydown', function (event) {
-    if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
+    if (window.utils) {
       event.stopPropagation();
       event.preventDefault();
       showSetupModal();
     }
   });
-
+*/
   /**
    * Show Setup Modal.
    */
   function showSetupModal() {
-    prevFocusedElement = document.activeElement;
+    // prevFocusedElement = document.activeElement;
 
     wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
     wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
@@ -75,12 +109,12 @@
 
     setupWizardFormNode.addEventListener('submit', closeSubmitSetupModalHandler);
 
-    document.addEventListener('focus', lockSetupModalHandler, true);
+    // document.addEventListener('focus', lockSetupModalHandler, true);
 
     setupModalNode.addEventListener('keydown', preventDefaultOfSpaseHandler);
 
-    setupModalNode.classList.remove('invisible');
-    setupUserNameNode.focus();
+    // setupModalNode.classList.remove('invisible');
+    // setupUserNameNode.focus();
   }
 
   /**
@@ -88,7 +122,7 @@
    */
   function hideSetupModal() {
     setupModalNode.classList.add('invisible');
-    prevFocusedElement.focus();
+    // prevFocusedElement.focus();
 
     wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
     wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
@@ -105,7 +139,7 @@
 
     setupWizardFormNode.removeEventListener('submit', closeSubmitSetupModalHandler);
 
-    document.removeEventListener('focus', lockSetupModalHandler, true);
+    // document.removeEventListener('focus', lockSetupModalHandler, true);
 
     setupModalNode.removeEventListener('keydown', preventDefaultOfSpaseHandler);
   }
@@ -132,15 +166,15 @@
       hideSetupModal();
     }
   }
-
-  /**
-   * Lock Setup Modal.
-   */
-  function lockSetupModalHandler() {
-    if (!setupModalNode.contains(document.activeElement)) {
-      setupCloseNode.focus();
-    }
-  }
+  //
+  // /**
+  //  * Lock Setup Modal.
+  //  */
+  // function lockSetupModalHandler() {
+  //   if (!setupModalNode.contains(document.activeElement)) {
+  //     setupCloseNode.focus();
+  //   }
+  // }
 
   /**
    * Close Setup Modal after submit form.
