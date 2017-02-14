@@ -8,9 +8,8 @@
  * */
 window.utils = (function () {
   /**
-   * @private
    * Generate random element form array.
-   *
+   * @private
    * @param {Array} array - The array of elements.
    * @return {string} The random element form array.
    */
@@ -21,7 +20,6 @@ window.utils = (function () {
 
   /**
    * Generate random element form array excepting item.
-   *
    * @param {Array} array - The array of elements.
    * @param {string} item - The item for exception.
    * @return {string} The random element form array excepting item.
