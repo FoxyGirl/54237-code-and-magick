@@ -54,12 +54,17 @@ window.utils = (function () {
   /**
   * Control deactivation event from keyboard.
   * @param {Event} event - The Event.
-  * @return {boolean} If is activation event from keyboard - true, else - false.
+  * @return {boolean} If is deactivation event from keyboard - true, else - false.
   */
   function isDeactivationEvent(event) {
     return isKeyboardEvent(event) && event.keyCode === ESCAPE_KEY_CODE;
   }
 
+  /**
+   * Control keyboard event.
+   * @param {Event} event - The Event.
+   * @return {boolean} If is keyboard event - true, else - false.
+   */
   function isKeyboardEvent(event) {
     return typeof event.keyCode !== 'undefined';
   }

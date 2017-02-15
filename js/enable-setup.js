@@ -11,7 +11,6 @@
  */
 window.enableSetup = (function () {
   var setupModalNode = document.querySelector('.setup');
-  // var setupOpenNode = document.querySelector('.setup-open');
   var setupCloseNode = setupModalNode.querySelector('.setup-close');
   var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
   var btnSetupSubmit = setupModalNode.querySelector('.setup-submit');
@@ -21,8 +20,6 @@ window.enableSetup = (function () {
     openSetup();
     setupCloseNode.addEventListener('keydown', onKeyDownHandler);
     setupCloseNode.addEventListener('click', onClickHandler);
-    // btnSetupSubmit.addEventListener('keydown', onKeyDownHandler);
-    // btnSetupSubmit.addEventListener('click', onClickHandler);
     document.addEventListener('keydown', closeSetupModalKeyHandler);
 
     onSetupClose = cb;
@@ -53,7 +50,6 @@ window.enableSetup = (function () {
     document.removeEventListener('keydown', closeSetupModalKeyHandler);
     setupModalNode.classList.add('invisible');
 
-
     if (typeof onSetupClose === 'function') {
       onSetupClose();
     }
@@ -80,7 +76,6 @@ window.enableSetup = (function () {
 
   /**
    * Close Setup Modal by keys.
-   *
    * @param {Event} event - The Event.
    */
   function closeSetupModalKeyHandler(event) {
