@@ -5,6 +5,7 @@
 (function () {
   var setupModalNode = document.querySelector('.setup');
   var setupOpenNode = document.querySelector('.setup-open');
+  var setupOpenIconNode = document.querySelector('.setup-open-icon');
   var setupCloseNode = setupModalNode.querySelector('.setup-close');
   var setupWizardFormNode = setupModalNode.querySelector('.setup-wizard-form');
   var wizardCoatNode = document.getElementById('wizard-coat');
@@ -33,67 +34,53 @@
     '#e848d5',
     '#e6e848'
   ];
-  var ENTER_KEY_CODE = 13;
-  var ESCAPE_KEY_CODE = 27;
   var SPACE_KEY_CODE = 32;
-  // var prevFocusedElement = null;
 
   var changeWizardCoatColorHandler = window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
   var changeWizardEyesColorHandler = window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
   var changeFireballColorHandler = window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
 
-  // var focusOpenButton = function() {
-  //   setupOpenNode.focus();
-  // };
-
-  // var onSetupKeydown = function(event) {
-  //   if (window.utils.isActivationEvent(event)) {
-  //     event.stopPropagation();
-  //     event.preventDefault();
-  //     window.enableSetup(focusOpenButton);
-  //   }
-  // };
-
   setupOpenNode.addEventListener('keydown', onSetupKeydownHandler);
   setupOpenNode.addEventListener('click', onSetupClickHandler);
 
+  /**
+   * Handler for keydown.
+   * @param {Event} event - The Event.
+   */
   function onSetupKeydownHandler(event) {
     if (window.utils.isActivationEvent(event)) {
       event.stopPropagation();
       event.preventDefault();
-      showSetupModal();
+      initSetupModal();
       window.enableSetup(focusOpenButton);
     }
   }
 
+  /**
+   * Handler for click.
+   * @param {Event} event - The Event.
+   */
   function onSetupClickHandler(event) {
     event.preventDefault();
     window.enableSetup();
   }
 
+  /**
+   * Callback function for Open Button focusing.
+   */
   function focusOpenButton() {
-    setupOpenNode.focus();
+    setupOpenIconNode.focus();
   }
 /**************************************/ //eslint-disable-line
 
   setupOpenNode.addEventListener('click', function () {
-    showSetupModal();
+    initSetupModal();
   });
-/*
-  setupOpenNode.addEventListener('keydown', function (event) {
-    if (window.utils) {
-      event.stopPropagation();
-      event.preventDefault();
-      showSetupModal();
-    }
-  });
-*/
+
   /**
    * Show Setup Modal.
    */
-  function showSetupModal() {
-    // prevFocusedElement = document.activeElement;
-
+  function initSetupModal() {
     wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
     wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
     fireballSetupNode.addEventListener('click', changeFireballColorHandler);
@@ -102,28 +89,22 @@
     wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
     fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
 
-    document.addEventListener('keydown', closeSetupModalKeyHandler);
+    document.addEventListener('keydown', removeSetupModalKeyHandler);
 
-    setupCloseNode.addEventListener('keydown', closeBtnSetupModalHandler);
-    setupCloseNode.addEventListener('click', closeBtnSetupModalHandler);
+    setupCloseNode.addEventListener('keydown', removeBtnSetupModalHandler);
+    setupCloseNode.addEventListener('click', removeBtnSetupModalHandler);
 
-    setupWizardFormNode.addEventListener('submit', closeSubmitSetupModalHandler);
+    setupWizardFormNode.addEventListener('submit', preventSubmitHandler);
 
-    // document.addEventListener('focus', lockSetupModalHandler, true);
+    document.addEventListener('focus', lockSetupModalHandler, true);
 
     setupModalNode.addEventListener('keydown', preventDefaultOfSpaseHandler);
-
-    // setupModalNode.classList.remove('invisible');
-    // setupUserNameNode.focus();
   }
 
   /**
    * Hide Setup Modal.
    */
-  function hideSetupModal() {
-    setupModalNode.classList.add('invisible');
-    // prevFocusedElement.focus();
-
+  function removeSetupModal() {
     wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
     wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
     fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
@@ -132,67 +113,65 @@
     wizardEyesNode.removeEventListener('keydown', changeWizardEyesColorHandler);
     fireballSetupNode.removeEventListener('keydown', changeFireballColorHandler);
 
-    document.removeEventListener('keydown', closeSetupModalKeyHandler);
+    document.removeEventListener('keydown', removeSetupModalKeyHandler);
 
-    setupCloseNode.removeEventListener('keydown', closeBtnSetupModalHandler);
-    setupCloseNode.removeEventListener('click', closeBtnSetupModalHandler);
+    setupCloseNode.removeEventListener('keydown', removeBtnSetupModalHandler);
+    setupCloseNode.removeEventListener('click', removeBtnSetupModalHandler);
 
-    setupWizardFormNode.removeEventListener('submit', closeSubmitSetupModalHandler);
+    setupWizardFormNode.removeEventListener('submit', preventSubmitHandler);
 
-    // document.removeEventListener('focus', lockSetupModalHandler, true);
+    document.removeEventListener('focus', lockSetupModalHandler, true);
 
     setupModalNode.removeEventListener('keydown', preventDefaultOfSpaseHandler);
   }
 
   /**
-   * Close Setup Modal by keys.
-   *
+   * Remove Setup Modal by keys.
    * @param {Event} event - The Event.
    */
-  function closeSetupModalKeyHandler(event) {
-    if (event.keyCode === ESCAPE_KEY_CODE) {
-      hideSetupModal();
+  function removeSetupModalKeyHandler(event) {
+    if (window.utils.isDeactivationEvent(event)) {
+      removeSetupModal();
     }
   }
 
   /**
-   * Close Setup Modal by keys from close button.
-   *
+   * Remove Setup Modal by keys from close button.
    * @param {Event} event - The Event.
    */
-  function closeBtnSetupModalHandler(event) {
-    if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE || event.type === 'click') {
+  function removeBtnSetupModalHandler(event) {
+    if (window.utils.isActivationEvent(event) || event.type === 'click') {
       event.stopPropagation();
-      hideSetupModal();
+      event.preventDefault();
+      removeSetupModal();
     }
   }
-  //
-  // /**
-  //  * Lock Setup Modal.
-  //  */
-  // function lockSetupModalHandler() {
-  //   if (!setupModalNode.contains(document.activeElement)) {
-  //     setupCloseNode.focus();
-  //   }
-  // }
+
+  /**
+   * Lock Setup Modal.
+   */
+  function lockSetupModalHandler() {
+    if (!setupModalNode.contains(document.activeElement)) {
+      setupCloseNode.focus();
+    }
+  }
 
   /**
    * Close Setup Modal after submit form.
-   *
    * @param {Event} event - The Event.
    */
-  function closeSubmitSetupModalHandler(event) {
+  function preventSubmitHandler(event) {
     event.preventDefault();
-    hideSetupModal();
+    window.enableSetup().closeSetup();
+    removeSetupModal();
   }
 
   /**
    * Prevent default of Spase key.
-   *
    * @param {Event} event - The Event.
    */
   function preventDefaultOfSpaseHandler(event) {
-    if (event.keyCode === SPACE_KEY_CODE) {
+    if (event.keyCode === SPACE_KEY_CODE && event.target.tagName !== 'INPUT') {
       event.preventDefault(); // Чтобы не скролилось окно
       event.stopPropagation(); // Чтобы не дошло до window
     }
