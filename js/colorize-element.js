@@ -12,16 +12,14 @@
  * @return {Function} - The function for callback.
  */
 window.colorizeElement = (function () {
-  return function (element, colors, property) {
-    var currentColor = colors[0];
-    var ENTER_KEY_CODE = 13;
+  var colorizeFunct = null;
 
-    return function (event) {
-      if (event.type === 'keydown' && event.keyCode !== ENTER_KEY_CODE) {
-        return;
-      }
-      currentColor = window.utils.getRandomElementExcept(colors, currentColor);
-      element.style[property] = currentColor;
-    };
+  return function (cb) {
+
+    colorizeFunct = cb;
+
+    if (typeof colorizeFunct === 'function') {
+      colorizeFunct();
+    }
   };
 })();

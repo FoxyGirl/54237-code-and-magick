@@ -36,12 +36,25 @@
   ];
   var SPACE_KEY_CODE = 32;
 
-  var changeWizardCoatColorHandler = window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill');
-  var changeWizardEyesColorHandler = window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill');
-  var changeFireballColorHandler = window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background');
+  var changeWizardCoatColorHandler = window.colorizeElement(colorize(wizardCoatNode, wizardCoatColors, 'fill'));
+  var changeWizardEyesColorHandler = window.colorizeElement(colorize(wizardEyesNode, wizardEyesColors, 'fill'));
+  var changeFireballColorHandler = window.colorizeElement(colorize(fireballSetupNode, fireballSetupColors,
+      'background'));
 
   setupOpenNode.addEventListener('keydown', onSetupKeydownHandler);
   setupOpenNode.addEventListener('click', onSetupClickHandler);
+
+  function colorize(element, colors, property) {
+    var currentColor;
+    var ENTER_KEY_CODE = 13;
+    return function (event) {
+      if (event.type === 'keydown' && event.keyCode !== ENTER_KEY_CODE) {
+        return;
+      }
+      currentColor = window.utils.getRandomElementExcept(colors, currentColor);
+      element.style[property] = currentColor;
+    };
+  }
 
   /**
    * Handler for keydown.
