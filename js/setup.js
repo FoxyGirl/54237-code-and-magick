@@ -65,7 +65,7 @@
       event.stopPropagation();
       event.preventDefault();
       initSetupModal();
-      window.enableSetup(focusOpenButton);
+      window.setupModal(focusOpenButton);
     }
   }
 
@@ -75,7 +75,7 @@
    */
   function onSetupClickHandler(event) {
     event.preventDefault();
-    window.enableSetup();
+    window.setupModal();
   }
 
   /**
@@ -175,7 +175,7 @@
    */
   function preventSubmitHandler(event) {
     event.preventDefault();
-    window.enableSetup().closeSetup();
+    window.setupModal().closeSetup();
     removeSetupModal();
   }
 

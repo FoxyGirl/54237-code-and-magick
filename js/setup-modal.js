@@ -4,12 +4,12 @@
 'use strict';
 
 /**
- * @module enableSetup
+ * @module setupModal
  * Open and close Setup Modal.
  * @return {Function} - The function for opening and closing Setup Modal.
  * @param {Function} cb - The function for callback.
  */
-window.enableSetup = (function () {
+window.setupModal = (function () {
   var setupModalNode = document.querySelector('.setup');
   var setupCloseNode = setupModalNode.querySelector('.setup-close');
   var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
