@@ -36,24 +36,19 @@
   ];
   var SPACE_KEY_CODE = 32;
 
-  var changeWizardCoatColorHandler = window.colorizeElement(colorize(wizardCoatNode, wizardCoatColors, 'fill'));
-  var changeWizardEyesColorHandler = window.colorizeElement(colorize(wizardEyesNode, wizardEyesColors, 'fill'));
-  var changeFireballColorHandler = window.colorizeElement(colorize(fireballSetupNode, fireballSetupColors,
-      'background'));
-
   setupOpenNode.addEventListener('keydown', onSetupKeydownHandler);
   setupOpenNode.addEventListener('click', onSetupClickHandler);
 
-  function colorize(element, colors, property) {
-    var currentColor;
-    var ENTER_KEY_CODE = 13;
-    return function (event) {
-      if (event.type === 'keydown' && event.keyCode !== ENTER_KEY_CODE) {
-        return;
-      }
-      currentColor = window.utils.getRandomElementExcept(colors, currentColor);
-      element.style[property] = currentColor;
-    };
+  window.colorizeElement(wizardCoatNode, wizardCoatColors, colorizeFill);
+  window.colorizeElement(wizardEyesNode, wizardEyesColors, colorizeFill);
+  window.colorizeElement(fireballSetupNode, fireballSetupColors, colorizeBackground);
+
+  function colorizeFill(element, color) {
+    element.style.fill = color;
+  }
+
+  function colorizeBackground(element, color) {
+    element.style.background = color;
   }
 
   /**
@@ -94,14 +89,6 @@
    * Show Setup Modal.
    */
   function initSetupModal() {
-    wizardCoatNode.addEventListener('click', changeWizardCoatColorHandler);
-    wizardEyesNode.addEventListener('click', changeWizardEyesColorHandler);
-    fireballSetupNode.addEventListener('click', changeFireballColorHandler);
-
-    wizardCoatNode.addEventListener('keydown', changeWizardCoatColorHandler);
-    wizardEyesNode.addEventListener('keydown', changeWizardEyesColorHandler);
-    fireballSetupNode.addEventListener('keydown', changeFireballColorHandler);
-
     document.addEventListener('keydown', removeSetupModalKeyHandler);
 
     setupCloseNode.addEventListener('keydown', removeBtnSetupModalHandler);
@@ -118,14 +105,6 @@
    * Hide Setup Modal.
    */
   function removeSetupModal() {
-    wizardCoatNode.removeEventListener('click', changeWizardCoatColorHandler);
-    wizardEyesNode.removeEventListener('click', changeWizardEyesColorHandler);
-    fireballSetupNode.removeEventListener('click', changeFireballColorHandler);
-
-    wizardCoatNode.removeEventListener('keydown', changeWizardCoatColorHandler);
-    wizardEyesNode.removeEventListener('keydown', changeWizardEyesColorHandler);
-    fireballSetupNode.removeEventListener('keydown', changeFireballColorHandler);
-
     document.removeEventListener('keydown', removeSetupModalKeyHandler);
 
     setupCloseNode.removeEventListener('keydown', removeBtnSetupModalHandler);

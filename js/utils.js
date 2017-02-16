@@ -66,7 +66,7 @@ window.utils = (function () {
    * @return {boolean} If is keyboard event - true, else - false.
    */
   function isKeyboardEvent(event) {
-    return typeof event.keyCode !== 'undefined';
+    return (event instanceof KeyboardEvent);
   }
 
 })();

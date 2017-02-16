@@ -12,14 +12,25 @@
  * @return {Function} - The function for callback.
  */
 window.colorizeElement = (function () {
-  var colorizeFunct = null;
+  return function (element, colors, callback) {
+    var currentColor = colors[0];
 
-  return function (cb) {
+    element.addEventListener('keydown', function (event) {
+      if (window.utils.isActivationEvent(event)) {
+        event.stopPropagation();
+        changeColor();
+      }
+    });
 
-    colorizeFunct = cb;
+    element.addEventListener('click', changeColor);
 
-    if (typeof colorizeFunct === 'function') {
-      colorizeFunct();
+    function changeColor() {
+      currentColor = window.utils.getRandomElementExcept(colors, currentColor);
+
+      if (typeof callback === 'function') {
+        callback(element, currentColor);
+      }
     }
   };
+
 })();
