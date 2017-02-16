@@ -48,7 +48,7 @@ window.utils = (function () {
   * @return {boolean} If is activation event from keyboard - true, else - false.
   */
   function isActivationEvent(event) {
-    return isKeyboardEvent(event) && (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE);
+    return event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE;
   }
 
   /**
@@ -57,16 +57,7 @@ window.utils = (function () {
   * @return {boolean} If is deactivation event from keyboard - true, else - false.
   */
   function isDeactivationEvent(event) {
-    return isKeyboardEvent(event) && event.keyCode === ESCAPE_KEY_CODE;
-  }
-
-  /**
-   * Control keyboard event.
-   * @param {Event} event - The Event.
-   * @return {boolean} If is keyboard event - true, else - false.
-   */
-  function isKeyboardEvent(event) {
-    return (event instanceof KeyboardEvent);
+    return event.keyCode === ESCAPE_KEY_CODE;
   }
 
 })();

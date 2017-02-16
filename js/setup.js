@@ -154,7 +154,6 @@
    */
   function preventSubmitHandler(event) {
     event.preventDefault();
-    window.setupModal().closeSetup();
     removeSetupModal();
   }
 

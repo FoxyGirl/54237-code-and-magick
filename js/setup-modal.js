@@ -20,13 +20,11 @@ window.setupModal = (function () {
     openSetup();
     setupCloseNode.addEventListener('keydown', onKeyDownHandler);
     setupCloseNode.addEventListener('click', onClickHandler);
+    btnSetupSubmit.addEventListener('keydown', onKeyDownHandler);
+    btnSetupSubmit.addEventListener('click', onClickHandler);
     document.addEventListener('keydown', closeSetupModalKeyHandler);
 
     onSetupClose = cb;
-
-    return {
-      closeSetup: closeSetup
-    };
   };
 
   /**
