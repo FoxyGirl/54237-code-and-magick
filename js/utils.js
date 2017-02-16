@@ -5,7 +5,7 @@
 
 /**
  * @module utils
- * */
+ */
 window.utils = (function () {
   var ENTER_KEY_CODE = 13;
   var SPACE_KEY_CODE = 32;

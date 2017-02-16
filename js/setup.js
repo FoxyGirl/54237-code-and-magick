@@ -11,7 +11,6 @@
   var wizardCoatNode = document.getElementById('wizard-coat');
   var wizardEyesNode = document.getElementById('wizard-eyes');
   var fireballSetupNode = setupModalNode.querySelector('.setup-fireball-wrap');
-  // var setupUserNameNode = setupModalNode.querySelector('.setup-user-name');
   var wizardCoatColors = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -39,16 +38,22 @@
   setupOpenNode.addEventListener('keydown', onSetupKeydownHandler);
   setupOpenNode.addEventListener('click', onSetupClickHandler);
 
-  window.colorizeElement(wizardCoatNode, wizardCoatColors, colorizeFill);
-  window.colorizeElement(wizardEyesNode, wizardEyesColors, colorizeFill);
-  window.colorizeElement(fireballSetupNode, fireballSetupColors, colorizeBackground);
+  window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill', colorizeElem);
+  window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill', colorizeElem);
+  window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background', colorizeElem);
 
-  function colorizeFill(element, color) {
-    element.style.fill = color;
-  }
+  setupOpenNode.addEventListener('click', function () {
+    initSetupModal();
+  });
 
-  function colorizeBackground(element, color) {
-    element.style.background = color;
+  /**
+   * Change style property in element.
+   * @param {Element} element - The element for changing style property.
+   * @param {string} color - New color.
+   * @param {string} property - The changeable property.
+   */
+  function colorizeElem(element, color, property) {
+    element.style[property] = color;
   }
 
   /**
@@ -79,14 +84,9 @@
   function focusOpenButton() {
     setupOpenIconNode.focus();
   }
-/**************************************/ //eslint-disable-line
-
-  setupOpenNode.addEventListener('click', function () {
-    initSetupModal();
-  });
 
   /**
-   * Show Setup Modal.
+   * Init Setup Modal.
    */
   function initSetupModal() {
     document.addEventListener('keydown', removeSetupModalKeyHandler);
@@ -102,7 +102,7 @@
   }
 
   /**
-   * Hide Setup Modal.
+   * Remove Setup Modal.
    */
   function removeSetupModal() {
     document.removeEventListener('keydown', removeSetupModalKeyHandler);

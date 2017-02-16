@@ -5,14 +5,15 @@
 
 /**
  * @module colorizeElement
- * Change style property in element from array.
+ * Add handlers  for change style property in element from array.
+ * @return {Function} - The function.
  * @param {Element} element - The element for changing style property.
  * @param {Array} colors - The array of colors.
  * @param {string} property - The changeable property.
- * @return {Function} - The function for callback.
+ * @param {Function} callback - The callback function.
  */
 window.colorizeElement = (function () {
-  return function (element, colors, callback) {
+  return function (element, colors, property, callback) {
     var currentColor = colors[0];
 
     element.addEventListener('keydown', function (event) {
@@ -28,7 +29,7 @@ window.colorizeElement = (function () {
       currentColor = window.utils.getRandomElementExcept(colors, currentColor);
 
       if (typeof callback === 'function') {
-        callback(element, currentColor);
+        callback(element, currentColor, property);
       }
     }
   };
