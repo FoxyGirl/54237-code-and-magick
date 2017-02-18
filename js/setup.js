@@ -35,18 +35,26 @@
   setupOpenNode.addEventListener('keydown', onSetupKeydownHandler);
   setupOpenNode.addEventListener('click', onSetupClickHandler);
 
-  window.colorizeElement(wizardCoatNode, wizardCoatColors, 'fill', colorizeElem);
-  window.colorizeElement(wizardEyesNode, wizardEyesColors, 'fill', colorizeElem);
-  window.colorizeElement(fireballSetupNode, fireballSetupColors, 'background', colorizeElem);
+  window.colorizeElement(wizardCoatNode, wizardCoatColors, fillElement);
+  window.colorizeElement(wizardEyesNode, wizardEyesColors, fillElement);
+  window.colorizeElement(fireballSetupNode, fireballSetupColors, changeElementBackground);
 
   /**
-   * Change style property in element.
+   * Change fill style in element.
    * @param {Element} element - The element for changing style property.
    * @param {string} color - New color.
-   * @param {string} property - The changeable property.
    */
-  function colorizeElem(element, color, property) {
-    element.style[property] = color;
+  function fillElement(element, color) {
+    element.style.fill = color;
+  }
+
+  /**
+   * Change backgroundColor style in element.
+   * @param {Element} element - The element for changing style property.
+   * @param {string} color - New color.
+   */
+  function changeElementBackground(element, color) {
+    element.style.backgroundColor = color;
   }
 
   /**

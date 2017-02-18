@@ -13,7 +13,7 @@
  * @param {Function} callback - The callback function.
  */
 window.colorizeElement = (function () {
-  return function (element, colors, property, callback) {
+  return function (element, colors, callback) {
     var currentColor = colors[0];
 
     element.addEventListener('keydown', function (event) {
@@ -29,7 +29,7 @@ window.colorizeElement = (function () {
       currentColor = window.utils.getRandomElementExcept(colors, currentColor);
 
       if (typeof callback === 'function') {
-        callback(element, currentColor, property);
+        callback(element, currentColor);
       }
     }
   };
