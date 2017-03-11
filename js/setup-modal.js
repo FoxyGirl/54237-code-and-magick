@@ -17,6 +17,9 @@ window.setupModal = (function () {
   var btnSubmitNode = setupModalNode.querySelector('.setup-submit');
   var SPACE_KEY_CODE = 32;
   var onSetupClose = null;
+  var wizardNode = setupModalNode.querySelector('.setup-wizard-wrap');
+  var setupSimilarNode = setupModalNode.querySelector('.setup-similar');
+  var urlWizard = 'https://intensive-javascript-server-myophkugvq.now.sh/code-and-magick/data';
 
   return function (cb) {
     openSetup();
@@ -32,6 +35,8 @@ window.setupModal = (function () {
     setupModalNode.classList.remove('invisible');
     setupUserNameNode.focus();
 
+    window.load(urlWizard, loadWizards);
+
     setupCloseNode.addEventListener('keydown', onKeyDownHandler);
     setupCloseNode.addEventListener('click', onClickHandler);
     btnSubmitNode.addEventListener('keydown', onKeyDownHandler);
@@ -43,6 +48,68 @@ window.setupModal = (function () {
     setupWizardFormNode.addEventListener('submit', preventSubmitHandler);
 
     setupModalNode.addEventListener('keydown', preventDefaultOfSpaseHandler);
+  }
+
+  /**
+   * Create similar wizards
+   * @private
+   * @param {Array} wizards - Data for wizards elements.
+   */
+  function loadWizards(wizards) {
+    var randomWizards = window.utils.getRandomArrayFromArray(wizards, 5);
+    renderWizards(randomWizards);
+  }
+
+  /**
+   * Render wizards
+   * @private
+   * @param {Array} wizards - The array of objects with wizards data.
+   */
+  function renderWizards(wizards) {
+    var fragment = document.createDocumentFragment();
+    var newWizardNode = null;
+    var wizardInsideNode = null;
+    wizards.forEach(function (wizard) {
+      newWizardNode = wizardNode.cloneNode(true);
+      newWizardNode.setAttribute('title', wizard.name);
+      wizardInsideNode = newWizardNode.querySelector('#wizard');
+      wizardInsideNode.querySelector('#wizard-coat').style.fill = wizard.colorCoat;
+      wizardInsideNode.querySelector('#wizard-eyes').style.fill = wizard.colorEyes;
+
+      changeAllChildren(newWizardNode, changeIdToClass);
+      fragment.appendChild(newWizardNode);
+    });
+
+    setupSimilarNode.innerHTML = '';
+    setupSimilarNode.appendChild(fragment);
+  }
+
+  /**
+   * Change id to class
+   * @private
+   * @param {Element} elem - The changeable element.
+   */
+  function changeIdToClass(elem) {
+    if (elem.hasAttribute('id')) {
+      elem.classList.add(elem.getAttribute('id'));
+      elem.removeAttribute('id');
+    }
+  }
+
+  /**
+   * Change all children
+   * @private
+   * @param {Element} elem - The element in which all children must be changed.
+   * @param {Function} func - The function for changing of every child.
+   */
+  function changeAllChildren(elem, func) {
+    if (elem.children.length === 0) {
+      return;
+    }
+    [].forEach.call(elem.children, function (children) {
+      func(children);
+      changeAllChildren(children, func);
+    });
   }
 
   /**
